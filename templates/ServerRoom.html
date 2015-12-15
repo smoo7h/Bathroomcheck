@@ -1,0 +1,57 @@
+$def with (status)
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+   
+        <title>Server Room</title>
+        <link type="text/css" rel="stylesheet" href="./static/Content/bootstrap.css" /><link type="text/css" rel="stylesheet" href="./static/Content/normalize.css" /><link type="text/css" rel="stylesheet" href="./static/Content/ourstyle.css" />
+     
+     <script type="text/javascript"  src='./static/Scripts/jquery-2.0.3.min.js'></script>
+
+     <script type="text/javascript">
+         jQuery(document).ready(function () {
+                                DisplayStatus();
+                                });
+                                function DisplayStatus() {
+                                    
+                                    jQuery.getJSON('http://192.168.123.238:8080/door1', function(jd) {
+                                                   var refresh = 1000; //Refresh rate 1000 milli sec means 1 sec
+                                                   if(jd.Status == 'True') {
+                                                        jQuery('#stage').html('<button type="submit" id="btn-login" class="btn-custom-green"> ' + 'Open' + '</button>');
+                                                   }
+                                                   else
+                                                   {
+                                                        jQuery('#stage').html('<button type="submit" id="btn-login" class="btn-custom-red"> ' + 'Closed' + '</button>');
+                                                   }
+                                                    window.setTimeout('DisplayStatus()', refresh);
+                                                });
+                                };
+     </script>
+
+    </head>
+    
+    <body>
+        <a href="http://www.greensaver.org"><img id="github-banner" style="position:absolute;top:0px;right:0;border:0;" src="./static/Content/images/gslogo.png"></a>
+
+                <div id="login-container" align="center">
+                <div id="login-form" class="well span4">
+                    <h1>Server Room</h1>
+                    <img src="./static/Content/images/File_Server.png" alt="" align="middle">
+                    <p class="subheading2">Status</p>
+                    <div id="stage"></div>                    
+                    <div class="clear-fix"></div>
+                    <div class="btm-links"></div>
+                </div>
+                </div>
+                
+            
+
+    </body>
+    
+
+    <script src="./static/Scripts/bootstrap.min.js"></script>
+    
+</html>
